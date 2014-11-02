@@ -16,6 +16,12 @@ class Homestead
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
 
+  # Configure A Few VMWare Settings
+      config.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = settings["memory"] ||= "2048"
+      v.vmx["numvcpus"] = settings["cpus"] ||= "1"
+    end
+
     # Configure Port Forwarding To The Box
     config.vm.network "forwarded_port", guest: 80, host: 8000
     config.vm.network "forwarded_port", guest: 3306, host: 33060
